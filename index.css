@@ -6,3 +6,9 @@
     box-sizing: border-box;
     font-family: 'Poppins';
 }
+
+input:focus,
+textarea:focus,
+span:focus {
+    outline: none;
+}

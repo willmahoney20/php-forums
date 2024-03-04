@@ -1,11 +1,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="index.css" rel="stylesheet">
+    <link href="../index.css" rel="stylesheet">
     <title>PHP Forums</title>
 </head>
-<body class="bg-black">
-    <div class="h-screen flex flex-col justify-between">        
+<body class="relative bg-black">
+    <div class="min-h-screen flex flex-col justify-between">        
         <div class="container mx-auto flex flex-row justify-between items-center p-4">
             <div class="flex flex-row">
                 <img class="h-8 w-8" src="../assets/logo.png" alt="Logo">
