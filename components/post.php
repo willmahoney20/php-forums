@@ -1,5 +1,9 @@
 <?php
 
+    include('db.php');
+
+    echo '<p style="color: white;">Second Echo</p>';
+
     $content = "";
     $error = false;
     if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])){
