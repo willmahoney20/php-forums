@@ -105,6 +105,8 @@
             } else {
                 progressNum.style.display = "none"
             }
+        } else if(textContent.length < 1){
+            progressBox.style.display = "none"
         } else {
             progressBox.style.transform = "scale(0.8)"
             progressNum.style.display = "none"
