@@ -33,6 +33,22 @@
         }
     }
 
+
+    if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete'])){
+        try {
+            if(isset($_POST['deleteId'])){
+                $sql = "DELETE FROM forum_posts WHERE post_id = :id";
+                $stmt = $pdo->prepare($sql);
+                $stmt->bindParam(':id', $_POST['deleteId']);
+                $stmt->execute();
+    
+                header("Location: " . $_SERVER['PHP_SELF']);
+            }
+        } catch (PDOException $e) {
+            echo '<p style="color: white;">Delete Failed: ' . $e->getMessage() . '</p>';
+        }
+    }
+
     try {
         $stmt = $pdo->prepare("SELECT * FROM forum_posts");
         $stmt->execute();
@@ -80,13 +96,27 @@
                         </p>
                     </div>
                 </div>
-                <div class="relative">
+                <div class="flex flex-row">
                     <button
                         class="py-1 px-0.5"
                         onClick="handleOptions(<?php echo $row['post_id']; ?>)"
                     >
-                        <img class="h-auto w-4" src="../assets/editing.png" alt="Options">
+                        <img class="h-auto w-4" src="../assets/editing.png" alt="Edit">
                     </button>
+                    <form
+                        action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>"
+                        method="POST"
+                    >
+                        <input value="<?php echo $row['post_id']; ?>" type="hidden" name="deleteId">
+                        <button
+                            type="submit"
+                            name="delete"
+                            value="Delete"
+                            class="py-1 px-0.5 ml-1"
+                        >
+                            <img class="h-auto w-4" src="../assets/delete.png" alt="Delete">
+                        </button>
+                    </form>
                 </div>
             </div>
             
