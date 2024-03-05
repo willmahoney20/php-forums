@@ -1,29 +1,36 @@
 <?php
 
-    include('db.php');
-
-    echo '<p style="color: white;">Second Echo</p>';
+    require_once 'db.php';
 
     $content = "";
     $error = false;
     if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])){
-        echo '<pre style="color: white;">';
-        print_r($_POST);
-        echo '</pre>';
-
         if(empty($_POST['content'])){
             $error = true;
+        } elseif(strlen($_POST['content']) > 255){
+            $error = true;
+            $content = $_POST['content'];
         } else {
-            $content = htmlspecialchars($_POST['content']);
-            $error = false;
-            echo '<p style="color: white;">' . htmlspecialchars($_POST['content']) . '</p>';
+            try {
+                $content = htmlspecialchars($_POST['content']);
+                $error = false;
+    
+                $sql = "INSERT INTO forum_posts (post_content) VALUES (:content)";
+                $stmt = $pdo->prepare($sql);
+                $stmt->bindParam(':content', $content);
+                $stmt->execute();
+
+                header("Location: " . $_SERVER['PHP_SELF']);
+            } catch (PDOException $e) {
+                echo '<p style="color: white;">Post Failed: ' . $e->getMessage() . '</p>';
+            }
         }
     };
-
+    
 ?>
 
-<div class="container mx-auto flex justify-center items-start p-4" style="min-height: calc(100vh - 104px);">
-    <section class="bg-zinc-900 max-w-96 w-full flex flex-col items-center rounded-lg p-4">
+<section class="bg-zinc-900 w-full flex flex-col items-center rounded-lg p-4 mb-6">
+    <div class="bg-black w-full rounded-lg p-4">
         <form
             class="flex flex-col w-full"
             action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>"
@@ -38,7 +45,7 @@
                         name="content"
                         contenteditable
                         class="bg-transparent text-white z-20"
-                        style="width: 312px;"
+                        style="width: calc(100% - 40px);"
                         oninput="checkTextContent()"
                     >
                         <?php echo $content; ?>
@@ -51,33 +58,67 @@
                 </div>
             </div>
             <div
-                class="flex flex-row justify-end w-full border-t border-zinc-800 mt-4 pt-4"
+                class="flex flex-row justify-end items-center w-full border-t border-zinc-800 mt-4 pt-4"
                 style="<?php if($error){echo "border-color: red";} ?>;"
             >
-                <input type="submit" name="submit" value="Post" class="bg-green-500 font-medium text-white rounded-lg h-8 px-3 ml-3">
+                <div class="pro_box z-10">
+                    <div class="pro_percent">
+                        <svg>
+                            <circle cx="14" cy="14" r="14"></circle>
+                            <circle cx="14" cy="14" r="14"></circle>
+                        </svg>
+                        <div class="pro_number">
+                            <h4></h4>
+                        </div>
+                    </div>
+                </div>
+                <input type="submit" name="submit" value="Post" class="bg-green-500 font-medium text-white rounded-lg h-8 px-3 ml-2 z-20 cursor-pointer">
             </div>
         </form>
-    </section>
-</div>
+    </div>
+</section>
 
 <script>
     const checkTextContent = () => {
-        console.log('here')
-        // Get the value of the editable text element
         let textContent = document.getElementById("content").innerText.trim()
 
-        // Update the value of the hidden input field
-        document.getElementById("contentInput").value = textContent
+        // Calculate the percentage of characters used
+        let perc = textContent.length > 255 ? 1 : (textContent.length / 255)
 
-        // Get the placeholder text element
+        // Set the stroke of the second circle based on the percentage
+        let secondCircle = document.querySelector(".pro_percent svg circle:nth-child(2)")
+        secondCircle.style.stroke = textContent.length > 255 ? "red" : "#22c55e"
+        secondCircle.style.strokeDashoffset = `calc(88 - (88 * ${perc}))`
+
+        let progressBox = document.querySelector(".pro_box")
+        let progressNum = document.querySelector(".pro_number")
+        let progressText = document.querySelector(".pro_number h4")
+
+        progressBox.style.display = "flex"
+
+        if(textContent.length >= 235){
+            progressBox.style.transform = "scale(1)"
+
+            if(textContent.length < 265){
+                progressNum.style.display = "flex"
+                progressText.innerText = 255 - textContent.length
+            } else {
+                progressNum.style.display = "none"
+            }
+        } else {
+            progressBox.style.transform = "scale(0.8)"
+            progressNum.style.display = "none"
+            progressText.innerText = ''
+        }
+        
+        document.getElementById("contentInput").value = textContent
+        
         let placeholderText = document.getElementById("placeholder")
 
-        // Check if the text content is empty
+        // hide the placeholder text if the user has inputted text
         if(textContent === ""){
-            // If empty, show the placeholder text
             placeholderText.style.display = "block"
         } else {
-            // If not empty, hide the placeholder text
             placeholderText.style.display = "none"
         }
     }

@@ -21,13 +21,13 @@
                         Search...
                     </p>
                 </div>
-                <button class="bg-green-500 font-medium text-white rounded-lg h-8 px-3 ml-3">
-                    Post
-                </button>
                 <img class="h-8 w-8 rounded-2xl ml-3" src="../assets/propic.png" alt="Logo">
                 <div class="flex flex-col ml-1">
                     <h3 class="text-white text-xs font-bold mb-0">Barry Allen</h3>
                     <h5 class="text-white text-xs font-semibold opacity-70">@the_flash</h5>
                 </div>
+                <button class="bg-transparent font-medium text-sm text-white border-2 border-white rounded-lg h-8 px-3 ml-3">
+                    Logout
+                </button>
             </div>
         </div>
