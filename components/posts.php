@@ -63,7 +63,6 @@
     }
 
     function editPost(){
-        echo '<p style="color: white;">Chow: ' . $_GET['editPost'] . '</p>';
         global $result;
         global $edited_content;
         global $editing;

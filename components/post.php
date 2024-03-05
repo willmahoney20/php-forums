@@ -45,7 +45,7 @@
                         name="content"
                         contenteditable
                         class="bg-transparent text-white z-20"
-                        style="width: calc(100% - 40px);"
+                        style="width: calc(100%);"
                         oninput="checkTextContent()"
                     >
                         <?php echo $content; ?>
