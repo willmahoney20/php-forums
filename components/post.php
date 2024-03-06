@@ -12,12 +12,11 @@
             $content = $_POST['content'];
         } else {
             try {
-                $content = htmlspecialchars($_POST['content']);
                 $error = false;
     
                 $sql = "INSERT INTO forum_posts (post_content) VALUES (:content)";
                 $stmt = $pdo->prepare($sql);
-                $stmt->bindParam(':content', $content);
+                $stmt->bindParam(':content', htmlspecialchars($_POST['content']));
                 $stmt->execute();
 
                 header("Location: " . $_SERVER['PHP_SELF']);
