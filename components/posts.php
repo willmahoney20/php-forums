@@ -50,7 +50,7 @@
     }
 
     try {
-        $stmt = $pdo->prepare("SELECT * FROM forum_posts");
+        $stmt = $pdo->prepare("SELECT * FROM forum_posts ORDER BY post_created DESC");
         $stmt->execute();
 
         $result = $stmt->fetchAll();
