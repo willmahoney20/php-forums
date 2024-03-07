@@ -11,7 +11,7 @@ $dotenv->load();
 require 'classes/Config.php';
 require 'classes/Database.php';
 require 'classes/Router.php';
-require 'helpers.php';
+require 'classes/Helpers.php';
 
 $CFG = new Config();
 
@@ -24,6 +24,6 @@ $router = new Router();
 
 $router->run();
 
-dd($CFG->base_dir);
+Helpers::dd($CFG->base_dir);
 
 // dd($posts);
