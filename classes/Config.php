@@ -5,6 +5,8 @@ class Config {
 
 	public $base_url = false;
 
+	public $base_dir = false;
+
 	public $db_host = false,
     $db_user = false,
     $db_pass = false,
@@ -21,6 +23,7 @@ class Config {
 				$this->db_name = $_ENV['LIVE_DB_DATABASE'];
 
 				$this->base_url = $_ENV['LIVE_BASE_URL'];
+				$this->base_dir  = $_ENV['LIVE_BASE_DIR'];
 				break;
 			default:
 				$this->db_host = $_ENV['DEV_DB_HOST'];
@@ -29,6 +32,7 @@ class Config {
 				$this->db_name = $_ENV['DEV_DB_DATABASE'];
 
 				$this->base_url = 'http://' . $_SERVER['HTTP_HOST'] . '/';
+				$this->base_dir    = $_ENV['DEV_BASE_DIR'];
 				break;
 		}
     }
