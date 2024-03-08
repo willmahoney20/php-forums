@@ -148,10 +148,22 @@
                             </div>
                         </form>
                     <?php } else { ?>
-                        <p class="text-white text-normal text-sm">
-                            <?= $post['content'] ?>
-                        </p>
+                        <a href="/posts/<?= $post['id'] ?>">
+                            <p class="text-white text-normal text-sm">
+                                <?= $post['content'] ?>
+                            </p>
+                        </a>
                     <?php } ?>
+                    <div class="flex flex-row justify-between items-center mt-3">
+                        <p class="text-white text-xs font-semibold">
+                            0 votes
+                        </p>
+                        <a href="/posts/<?= $post['id'] ?>">
+                            <p class="text-white text-xs font-semibold">
+                                0 comments
+                            </p>
+                        </a>
+                    </div>
                 </div>
             <?php } ?>
         </section>

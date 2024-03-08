@@ -17,6 +17,48 @@ class Router {
         $this->routes[$method][$pattern] = $handler;
     }
 
+    // shorthand for a route accessed using any method
+    // $pattern <string> - a route pattern such as /about/system
+    // $fn <function> - a handling function to be executed
+    public function all($pattern, $fn){
+        $this->match('GET|POST|PUT|DELETE|OPTIONS|PATCH|HEAD', $pattern, $fn);
+    }
+
+    // shorthand for a route accessed using GET
+    // $pattern <string> - a route pattern such as /about/system
+    // $fn <function> - a handling function to be executed
+    public function get($pattern, $fn){
+        $this->match('GET', $pattern, $fn);
+    }
+
+    // shorthand for a route accessed using POST
+    // $pattern <string> - a route pattern such as /about/system
+    // $fn <function> - a handling function to be executed
+    public function post($pattern, $fn){
+        $this->match('POST', $pattern, $fn);
+    }
+    
+    // shorthand for a route accessed using PATCH
+    // $pattern <string> - a route pattern such as /about/system
+    // $fn <function> - a handling function to be executed
+    public function patch($pattern, $fn){
+        $this->match('PATCH', $pattern, $fn);
+    }
+    
+    // shorthand for a route accessed using DELETE
+    // $pattern <string> - a route pattern such as /about/system
+    // $fn <function> - a handling function to be executed
+    public function delete($pattern, $fn){
+        $this->match('DELETE', $pattern, $fn);
+    }
+    
+    // shorthand for a route accessed using PUT
+    // $pattern <string> - a route pattern such as /about/system
+    // $fn <function> - a handling function to be executed
+    public function put($pattern, $fn){
+        $this->match('PUT', $pattern, $fn);
+    }
+
     public function mount($baseRoute, $fn){
         // track current base route
         $curBaseRoute = $this->baseRoute;

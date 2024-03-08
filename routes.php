@@ -4,24 +4,24 @@ require_once 'classes/Posts.php';
 
 $pageJS = [];
 
-$router->match('GET', '/', function (){
+$router->get('/', function (){
 	echo 'Home page' . '<br />';
 });
 
-$router->match('GET', '/login', function (){
+$router->get('/login', function (){
 	require_once 'views/login.php';
 });
 
 $router->mount('/posts', function () use ($router) {
-	$router->match('GET', '/', function (){
+	$router->get('/', function (){
 		$posts = (new Posts)->getAllPosts();
 
-		require_once 'views/explore.php';
+		require_once 'views/posts.php';
 	});
 
-	$router->match('GET', '/(\w+)', function ($hash){
+	$router->get('/(\w+)', function ($hash){
 		$post = (new Posts)->getOnePost($hash);
 
-		require_once 'views/explore.php';
+		require_once 'views/post.php';
 	});
 });
