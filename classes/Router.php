@@ -1,91 +1,50 @@
 <?php
 
 class Router {
-    private $baseRoute = '';
+    // array to store routes and their associated handling functions
+    private $routes = [];
 
-    private $beforeRoutes = array();
+    // defines a route for a specific HTTP method
+    // $method <string> - the method, such as GET or POST
+    // $pattern <string> - a route, such as /login or /settings/account
+    // $handler <function> - the handling function to be executed
+    public function addRoute($method, $pattern, $handler){
+        $this->routes[$method][$pattern] = $handler;
+    }
 
-    private $afterRoutes = array();
-
-    protected $notFoundCallback = [];
-
-    private $requestedMethod = '';
-
-    public function match($methods, $pattern, $fn){
-        $pattern = $this->baseRoute . '/' . trim($pattern, '/');
-        $pattern = $this->baseRoute ? rtrim($pattern, '/') : $pattern;
-
-        foreach (explode('|', $methods) as $method) {
-            $this->afterRoutes[$method][] = array(
-                'pattern' => $pattern,
-                'fn' => $fn,
-            );
+    // handles an incoming request
+    // $method <string> - the method, such as GET or POST
+    // $uri <string> - the route the page is trying to access, such as /login
+    public function handleRequest($method, $uri){
+        // check if there are any routes defined for the requested method
+        if(isset($this->routes[$method])){
+            // iterate over the routes for the requested method
+            // $pattern <string> - a route, such as /login or /settings/account
+            // $handler <function> - the handling function to be executed
+            foreach($this->routes[$method] as $pattern => $handler) {
+                // check if the current pattern matches the requested URI
+                if($this->matchPattern($pattern, $uri)){
+                    // if there's a match, execute the associated handler function
+                    call_user_func($handler);
+                    return;
+                }
+            }
         }
+
+        // if no route matches, handle as 404 Not Found
+        $this->handleNotFound();
     }
 
-    public function all($pattern, $fn){
-        $this->match('GET|POST|PUT|DELETE|OPTIONS|PATCH|HEAD', $pattern, $fn);
+    // check if a pattern matches a given URI
+    private function matchPattern($pattern, $uri){
+        // perform simple string comparison for now
+        return $pattern === $uri;
     }
 
-    public function get($pattern, $fn){
-        $this->match('GET', $pattern, $fn);
-    }
-
-    public function post($pattern, $fn){
-        $this->match('POST', $pattern, $fn);
-    }
-    
-    public function patch($pattern, $fn){
-        $this->match('PATCH', $pattern, $fn);
-    }
-    
-    public function delete($pattern, $fn){
-        $this->match('DELETE', $pattern, $fn);
-    }
-    
-    public function put($pattern, $fn){
-        $this->match('PUT', $pattern, $fn);
-    }
-
-    public function run($callback = null){
-        // // Define which method we need to handle
-        // $this->requestedMethod = $this->getRequestMethod();
-
-        // // Handle all before middlewares
-        // if (isset($this->beforeRoutes[$this->requestedMethod])) {
-        //     $this->handle($this->beforeRoutes[$this->requestedMethod]);
-        // }
-
-        // // Handle all routes
-        // $numHandled = 0;
-        // if (isset($this->afterRoutes[$this->requestedMethod])) {
-        //     $numHandled = $this->handle($this->afterRoutes[$this->requestedMethod], true);
-        // }
-
-        // // If no route was handled, trigger the 404 (if any)
-        // if ($numHandled === 0) {
-        //     $this->trigger404($this->afterRoutes[$this->requestedMethod]);
-        // } // If a route was handled, perform the finish callback (if any)
-        // else {
-        //     if ($callback && is_callable($callback)) {
-        //         $callback();
-        //     }
-        // }
-
-        // // If it originally was a HEAD request, clean up after ourselves by emptying the output buffer
-        // if ($_SERVER['REQUEST_METHOD'] == 'HEAD') {
-        //     ob_end_clean();
-        // }
-
-        // // Return true if a route was handled, false otherwise
-        // return $numHandled !== 0;
-    }
-
-    public function set404($match_fn, $fn = null){
-        if(!is_null($fn)){
-            $this->notFoundCallback[$match_fn] = $fn;
-        } else {
-            $this->notFoundCallback['/'] = $match_fn;
-        }
+    // handle 404 Not Found errors
+    private function handleNotFound(){
+        header($_SERVER["SERVER_PROTOCOL"] . " 404 Not Found");
+        
+        require 'views/404.php';
     }
 }

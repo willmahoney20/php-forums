@@ -1,13 +1,13 @@
 <?php
 
-$pageJS     = [];
+$pageJS = [];
 
-$router->set404(function (){
-	global $CFG;
+$router->addRoute('GET', '/', function (){
+	echo 'Home page' . '<br />';
+});
 
-    http_response_code(404);
-	header('HTTP/1.1 404 Not Found');
-	require_once($CFG->base_dir . 'views/404.php');
+$router->addRoute('GET', '/login', function (){
+	echo 'Login page' . '<br />';
 });
 
 // $uri = parse_url($_SERVER['REQUEST_URI'])['path'];
