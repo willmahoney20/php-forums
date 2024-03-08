@@ -1,6 +1,8 @@
 <?php
 
 class Router {
+    private $baseRoute = '';
+
     // array to store routes and their associated handling functions
     private $routes = [];
 
@@ -8,14 +10,32 @@ class Router {
     // $method <string> - the method, such as GET or POST
     // $pattern <string> - a route, such as /login or /settings/account
     // $handler <function> - the handling function to be executed
-    public function addRoute($method, $pattern, $handler){
+    public function match($method, $pattern, $handler){
+        $pattern = $this->baseRoute . '/' . trim($pattern, '/');
+        $pattern = $this->baseRoute ? rtrim($pattern, '/') : $pattern;
+        
         $this->routes[$method][$pattern] = $handler;
+    }
+
+    public function mount($baseRoute, $fn){
+        // track current base route
+        $curBaseRoute = $this->baseRoute;
+
+        // build new base route string
+        $this->baseRoute .= $baseRoute;
+
+        // call the mount function
+        call_user_func($fn);
+
+        // Restore original base route
+        $this->baseRoute = $curBaseRoute;
     }
 
     // handles an incoming request
     // $method <string> - the method, such as GET or POST
-    // $uri <string> - the route the page is trying to access, such as /login
-    public function handleRequest($method, $uri){
+    public function handleRequest($method){
+        $uri = $this->getCurrentUri();
+
         // check if there are any routes defined for the requested method
         if(isset($this->routes[$method])){
             // iterate over the routes for the requested method
@@ -24,8 +44,13 @@ class Router {
             foreach($this->routes[$method] as $pattern => $handler) {
                 // check if the current pattern matches the requested URI
                 if($this->matchPattern($pattern, $uri)){
+                    // Extract the captured value from the URI
+                    $matches = [];
+                    preg_match_all('#^' . $pattern . '$#', $uri, $matches);
+                    $id = $matches[1][0]; // Assuming the captured value is at index
+
                     // if there's a match, execute the associated handler function
-                    call_user_func($handler);
+                    call_user_func($handler, $id);
                     return;
                 }
             }
@@ -37,8 +62,16 @@ class Router {
 
     // check if a pattern matches a given URI
     private function matchPattern($pattern, $uri){
-        // perform simple string comparison for now
-        return $pattern === $uri;
+        $pattern = preg_replace('/\/{(.*?)}/', '/(.*?)', $pattern);
+        
+        // we may have a match!
+        return boolval(preg_match_all('#^' . $pattern . '$#', $uri, $matches, PREG_OFFSET_CAPTURE));
+    }
+
+    // returns the current relative URI
+    public function getCurrentUri(){
+        // remove trailing slash + enforce a slash at the start
+        return '/' . trim($_SERVER['REQUEST_URI'], '/');
     }
 
     // handle 404 Not Found errors

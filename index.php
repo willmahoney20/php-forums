@@ -21,4 +21,4 @@ $router = new Router();
 
 require_once 'routes.php';
 
-$router->handleRequest($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);
+$router->handleRequest($_SERVER['REQUEST_METHOD']);
