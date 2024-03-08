@@ -16,7 +16,7 @@ class Helpers {
     }
 
     // gets the time since a timestamp (e.g. '3 days ago')
-    public static function datePosted($dateString) {
+    public static function datePosted($dateString){
         $timestamp = strtotime($dateString);
         $currentTimestamp = time();
         
@@ -37,4 +37,15 @@ class Helpers {
         
         return "$difference $periods[$i] ago";
     }
+
+    // the $pageJS is an array of JS files we've added in the routes.php file, this function loops through this array, adding the relevant JS files, this fn will likely be called in the footer
+	public static function pageJS(){
+		global $pageJS;
+
+		if(empty($pageJS)) return false;
+
+		foreach($pageJS as $file){
+			echo '<script src="' . $file . '"></script>' . "\r\n";
+		}
+	}
 }

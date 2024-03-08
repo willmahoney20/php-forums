@@ -45,6 +45,6 @@ class Router {
     private function handleNotFound(){
         header($_SERVER["SERVER_PROTOCOL"] . " 404 Not Found");
         
-        require 'views/404.php';
+        require_once 'views/err/404.php';
     }
 }

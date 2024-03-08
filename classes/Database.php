@@ -13,9 +13,9 @@ class Database {
         $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
-    public function query($query){
+    public function query($query, $params = []){
         $statement = $this->connection->prepare($query);
-        $statement->execute();
+        $statement->execute($params);
 
         return $statement;
     }

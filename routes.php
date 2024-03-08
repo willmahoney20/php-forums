@@ -1,5 +1,7 @@
 <?php
 
+require_once 'classes/Posts.php';
+
 $pageJS = [];
 
 $router->addRoute('GET', '/', function (){
@@ -7,7 +9,13 @@ $router->addRoute('GET', '/', function (){
 });
 
 $router->addRoute('GET', '/login', function (){
-	echo 'Login page' . '<br />';
+	require_once 'views/login.view.php';
+});
+
+$router->addRoute('GET', '/posts', function (){
+	$posts = (new Posts)->getPosts();
+
+	require_once 'views/index.view.php';
 });
 
 // $uri = parse_url($_SERVER['REQUEST_URI'])['path'];

@@ -16,12 +16,9 @@ require 'classes/Helpers.php';
 $CFG = new Config();
 
 $db = new Database();
-$posts = $db->query("SELECT * FROM forum_posts")->fetchAll(PDO::FETCH_ASSOC);
 
 $router = new Router();
 
 require_once 'routes.php';
 
 $router->handleRequest($_SERVER['REQUEST_METHOD'], $_SERVER['REQUEST_URI']);
-
-// dd($posts);

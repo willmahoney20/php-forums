@@ -6,3 +6,9 @@
         </div>
     </body>
 </html>
+
+<?php 
+
+Helpers::pageJS();
+
+?>
