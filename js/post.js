@@ -1,10 +1,20 @@
 const checkTextContent = () => {
     let textContent = document.getElementById("content").innerText.trim()
 
-    // Calculate the percentage of characters used
+    // calculate the percentage of characters used
     let perc = textContent.length > 255 ? 1 : (textContent.length / 255)
 
-    // Set the stroke of the second circle based on the percentage
+    // get the "Post" button, and prevent form submission if necessary
+    let submitBtn = document.getElementById("postBtn")
+    if(textContent.length > 255 || textContent.length < 1){
+        submitBtn.style.backgroundColor = 'grey'
+        submitBtn.disabled = true
+    } else {
+        submitBtn.style.backgroundColor = ''
+        submitBtn.disabled = false
+    }
+
+    // set the stroke of the second circle based on the percentage
     let secondCircle = document.querySelector(".pro_percent svg circle:nth-child(2)")
     secondCircle.style.stroke = textContent.length > 255 ? "red" : "#22c55e"
     secondCircle.style.strokeDashoffset = `calc(88 - (88 * ${perc}))`

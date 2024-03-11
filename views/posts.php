@@ -8,11 +8,7 @@
     <div class="w-6/12 px-8 flex flex-col justify-start items-center">
         <section class="bg-zinc-900 w-full flex flex-col items-center rounded-lg p-4 mb-6">
             <div class="bg-black w-full rounded-lg p-4">
-                <form
-                    class="flex flex-col w-full"
-                    action="<?= htmlspecialchars($_SERVER["PHP_SELF"]); ?>"
-                    method="POST"
-                >
+                <form class="flex flex-col w-full" method="POST">
                     <div class="flex flex-row w-full">
                         <img class="h-8 w-8 rounded-2xl mr-2" src="../assets/propic.png" alt="Logo">
                         <div class="relative flex w-full mt-1">
@@ -22,7 +18,7 @@
                                 name="content"
                                 contenteditable
                                 class="bg-transparent text-white z-20"
-                                style="width: calc(100%);"
+                                style="width: calc(100% - 40px);"
                                 oninput="checkTextContent()"
                             >
                                 <?= $content; ?>
@@ -49,7 +45,7 @@
                                 </div>
                             </div>
                         </div>
-                        <input type="submit" name="submit" value="Post" class="bg-green-500 font-medium text-white rounded-lg h-8 px-3 ml-2 z-20 cursor-pointer">
+                        <input id="postBtn" type="submit" name="submit" value="Post" class="bg-green-500 font-medium text-white rounded-lg h-8 px-3 ml-2 z-20 cursor-pointer">
                     </div>
                 </form>
             </div>

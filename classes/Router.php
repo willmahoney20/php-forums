@@ -7,14 +7,16 @@ class Router {
     private $routes = [];
 
     // defines a route for a specific HTTP method
-    // $method <string> - the method, such as GET or POST
+    // $methods <string> - the method, such as GET or POST, delimited by '|'
     // $pattern <string> - a route, such as /login or /settings/account
     // $handler <function> - the handling function to be executed
-    public function match($method, $pattern, $handler){
+    public function match($methods, $pattern, $handler){
         $pattern = $this->baseRoute . '/' . trim($pattern, '/');
         $pattern = $this->baseRoute ? rtrim($pattern, '/') : $pattern;
-        
-        $this->routes[$method][$pattern] = $handler;
+
+        foreach(explode('|', $methods) as $method){
+            $this->routes[$method][$pattern] = $handler;
+        }
     }
 
     // shorthand for a route accessed using any method
@@ -22,41 +24,6 @@ class Router {
     // $fn <function> - a handling function to be executed
     public function all($pattern, $fn){
         $this->match('GET|POST|PUT|DELETE|OPTIONS|PATCH|HEAD', $pattern, $fn);
-    }
-
-    // shorthand for a route accessed using GET
-    // $pattern <string> - a route pattern such as /about/system
-    // $fn <function> - a handling function to be executed
-    public function get($pattern, $fn){
-        $this->match('GET', $pattern, $fn);
-    }
-
-    // shorthand for a route accessed using POST
-    // $pattern <string> - a route pattern such as /about/system
-    // $fn <function> - a handling function to be executed
-    public function post($pattern, $fn){
-        $this->match('POST', $pattern, $fn);
-    }
-    
-    // shorthand for a route accessed using PATCH
-    // $pattern <string> - a route pattern such as /about/system
-    // $fn <function> - a handling function to be executed
-    public function patch($pattern, $fn){
-        $this->match('PATCH', $pattern, $fn);
-    }
-    
-    // shorthand for a route accessed using DELETE
-    // $pattern <string> - a route pattern such as /about/system
-    // $fn <function> - a handling function to be executed
-    public function delete($pattern, $fn){
-        $this->match('DELETE', $pattern, $fn);
-    }
-    
-    // shorthand for a route accessed using PUT
-    // $pattern <string> - a route pattern such as /about/system
-    // $fn <function> - a handling function to be executed
-    public function put($pattern, $fn){
-        $this->match('PUT', $pattern, $fn);
     }
 
     public function mount($baseRoute, $fn){
@@ -71,6 +38,50 @@ class Router {
 
         // Restore original base route
         $this->baseRoute = $curBaseRoute;
+    }
+
+    // get all request headers.
+    public function getRequestHeaders(){
+        $headers = array();
+
+        // if getallheaders() is available, use that
+        if(function_exists('getallheaders')){
+            $headers = getallheaders();
+
+            // getallheaders() can return false if something went wrong
+            if($headers !== false) return $headers;
+        }
+
+        // method getallheaders() not available or went wrong: manually extract 'm
+        foreach($_SERVER as $name => $value){
+            if((substr($name, 0, 5) == 'HTTP_') || ($name == 'CONTENT_TYPE') || ($name == 'CONTENT_LENGTH')){
+                $headers[str_replace(array(' ', 'Http'), array('-', 'HTTP'), ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))))] = $value;
+            }
+        }
+
+        return $headers;
+    }
+
+    // get the request method used, taking overrides into account
+    public function getRequestMethod(){
+        // take the method as found in $_SERVER
+        $method = $_SERVER['REQUEST_METHOD'];
+
+        // if it's a HEAD request, override it to GET and prevent any output, as per HTTP Specification
+        if($_SERVER['REQUEST_METHOD'] == 'HEAD'){
+            ob_start();
+            $method = 'GET';
+        }
+
+        // if it's a POST request, check for a method override header
+        elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $headers = $this->getRequestHeaders();
+            if (isset($headers['X-HTTP-Method-Override']) && in_array($headers['X-HTTP-Method-Override'], array('PUT', 'DELETE', 'PATCH'))) {
+                $method = $headers['X-HTTP-Method-Override'];
+            }
+        }
+
+        return $method;
     }
 
     // handles an incoming request

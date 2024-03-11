@@ -4,22 +4,30 @@ require_once 'classes/Posts.php';
 
 $pageJS = [];
 
-$router->get('/', function (){
+$router->match('GET', '/', function (){
 	echo 'Home page' . '<br />';
 });
 
-$router->get('/login', function (){
+$router->match('GET', '/login', function (){
 	require_once 'views/login.php';
 });
 
 $router->mount('/posts', function () use ($router) {
-	$router->get('/', function (){
+	$router->match('GET|POST', '/', function (){
+		global $router, $CFG, $pageJS;
+
+		if($router->getRequestMethod() === 'POST' && isset($_POST['submit'])){
+			(new Posts)->createPost();
+		}
+
 		$posts = (new Posts)->getAllPosts();
+
+		$pageJS[] = $CFG->base_url . 'js/post.js';
 
 		require_once 'views/posts.php';
 	});
 
-	$router->get('/(\w+)', function ($hash){
+	$router->match('GET', '/(\w+)', function ($hash){
 		$post = (new Posts)->getOnePost($hash);
 
 		require_once 'views/post.php';

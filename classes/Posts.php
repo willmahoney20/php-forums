@@ -11,7 +11,7 @@ class Posts {
 				JOIN forum_users ON forum_posts.user_id = forum_users.id
 				ORDER BY forum_posts.created DESC;
 			")
-			->fetchAll(PDO::FETCH_ASSOC);
+			->findAll();
 
 		return $recs;
 	}
@@ -27,8 +27,22 @@ class Posts {
 				WHERE forum_posts.id = :id
 				ORDER BY forum_posts.created DESC;
 			", ['id' => $hash])
-			->fetch(PDO::FETCH_ASSOC);
+			->findOne();
 
 		return $rec;
+	}
+
+	public function createPost(){
+		global $db;
+
+		$db->query("
+				INSERT INTO forum_posts (content, user_id)
+				VALUES (:content, :user_id)
+			", [
+				'content' => htmlspecialchars($_POST['content']),
+				'user_id' => 1
+			]);
+
+		Helpers::redirectSelf();
 	}
 }
