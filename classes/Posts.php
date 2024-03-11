@@ -45,4 +45,19 @@ class Posts {
 
 		Helpers::redirectSelf();
 	}
+
+	public function editPost(){
+		global $db;
+
+		$db->query("
+				UPDATE forum_posts
+				SET content = :content
+				WHERE id = :id
+			", [
+				'content' => htmlspecialchars($_POST['content']),
+				'id' => $_POST['id']
+			]);
+
+		header("Location: " . "/posts");
+	}
 }

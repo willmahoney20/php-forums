@@ -2,7 +2,7 @@
 
 <div class="container mx-auto flex flex-row justify-between items-start p-4" style="min-height: calc(100vh - 104px);">
     <div class="w-2/12">
-        <?php include('partials/leftSidebar.php'); ?>
+        <?php include('partials/left-sidebar.php'); ?>
     </div>
 
     <div class="w-6/12 px-8 flex flex-col justify-start items-center">

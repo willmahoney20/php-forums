@@ -27,6 +27,24 @@ $router->mount('/posts', function () use ($router) {
 		require_once 'views/posts.php';
 	});
 
+	$router->match('GET|POST', '/edit/(\w+)', function ($hash){
+		global $router, $CFG, $pageJS;
+
+		if($router->getRequestMethod() === 'POST' && isset($_POST['submit'])){
+			(new Posts)->editPost();
+		}
+
+		$post = (new Posts)->getOnePost($hash);
+
+		// set the content of the post as the initial value
+		$content = '';
+		if($post) $content = $post['content'];
+
+		$pageJS[] = $CFG->base_url . 'js/post.js';
+
+		require_once 'views/post-edit.php';
+	});
+
 	$router->match('GET', '/(\w+)', function ($hash){
 		$post = (new Posts)->getOnePost($hash);
 
