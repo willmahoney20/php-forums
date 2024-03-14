@@ -2,6 +2,13 @@
 
 class Helpers {
     // dumps (displays) the contents on the screen
+    public static function dump($value){
+        echo "<pre class='text-white'>";
+        var_dump($value);
+        echo "</pre>";
+    }
+
+    // dumps (displays) the contents on the screen and then dies
     public static function dd($value){
         echo "<pre>";
         var_dump($value);

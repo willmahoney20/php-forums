@@ -1,6 +1,7 @@
 <?php
 
 require_once 'classes/Posts.php';
+require_once 'classes/Comments.php';
 
 $pageJS = [];
 
@@ -36,7 +37,7 @@ $router->mount('/posts', function () use ($router) {
 			(new Posts)->editPost();
 		}
 
-		$post = (new Posts)->getOnePost($hash);
+		$post = (new Posts)->getOnePostContent($hash);
 
 		// set the content of the post as the initial value
 		$content = '';
@@ -54,7 +55,9 @@ $router->mount('/posts', function () use ($router) {
 			(new Posts)->deletePost();
 		}
 
-		$post = (new Posts)->getOnePost($hash);
+		$output = (new Posts)->getOnePost($hash);
+		$post = $output->post;
+		$comments = $output->comments;
 
 		require_once 'views/post.php';
 	});

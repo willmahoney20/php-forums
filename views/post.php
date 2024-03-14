@@ -20,21 +20,21 @@
                             <img class="h-8 w-8 rounded-2xl mr-1" src="../assets/propic.png" alt="Logo">
                             <div class="flex flex-col">
                                 <h6 class="text-white text-xs font-bold mb-0">
-                                    @<?= $post['username']; ?>
+                                    @<?= $post->username; ?>
                                 </h6>
                                 <p class="text-white text-xs font-semibold opacity-70">
-                                    <?= Helpers::datePosted($post['created']) ?>
+                                    <?= Helpers::datePosted($post->created) ?>
                                 </p>
                             </div>
                         </div>
                         <div class="flex flex-row items-center">
-                            <a href="<?= '/posts/edit/' . $post['id']; ?>">
+                            <a href="<?= '/posts/edit/' . $post->id; ?>">
                                 <button class="py-1 px-0.5">
                                     <img class="h-auto w-4" src="../assets/editing.png" alt="Edit">
                                 </button>
                             </a>
                             <form method="POST">
-                                <input value="<?= $post['id']; ?>" type="hidden" name="deleteId">
+                                <input value="<?= $post->id; ?>" type="hidden" name="deleteId">
                                 <button
                                     type="submit"
                                     name="delete"
@@ -47,23 +47,64 @@
                         </div>
                     </div>
                     <p class="text-white text-normal text-sm">
-                        <?= $post['content'] ?>
+                        <?= $post->content ?>
                     </p>
                     <div class="flex flex-row justify-between items-center mt-3">
                         <p class="text-white text-xs font-semibold">
                             0 votes
                         </p>
                         <p class="text-white text-xs font-semibold">
-                            0 comments
+                            <?= count($comments) == 1 ? '1 comment' : count($comments) . ' comments' ?>
                         </p>
                     </div>
 
                     <hr class="border-zinc-800 my-6" />
 
                     <div>
-                        <p class="text-white text-sm font-medium opacity-70 mb-4">
-                            There are currently no comments on this post.
-                        </p>
+                        <?php if(!$comments || count($comments) < 1){ ?>
+                            <p class="text-white text-sm font-medium opacity-70 mb-4">
+                                There are currently no comments on this post.
+                            </p>
+                        <?php } else { ?>
+                            <?php forEach($comments as $index => $comment){ ?>
+                                <div class="w-full <?= ($index === array_key_last($comments)) ? 'mb-0' : 'mb-6'; ?>">
+                                    <div class="flex flex-row justify-between items-center mb-3">
+                                        <div class="flex flex-row items-center">
+                                            <img class="h-8 w-8 rounded-2xl mr-1" src="../assets/propic.png" alt="Logo">
+                                            <div class="flex flex-col">
+                                                <h6 class="text-white text-xs font-bold mb-0">
+                                                    @<?= $comment['username']; ?>
+                                                </h6>
+                                                <p class="text-white text-xs font-semibold opacity-70">
+                                                    <?= Helpers::datePosted($comment['created']) ?>
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div class="flex flex-row items-center">
+                                            <a href="<?= '/posts/edit/' . $comment['id']; ?>">
+                                                <button class="py-1 px-0.5">
+                                                    <img class="h-auto w-4" src="../assets/editing.png" alt="Edit">
+                                                </button>
+                                            </a>
+                                            <form method="POST">
+                                                <input value="<?= $comment['id']; ?>" type="hidden" name="deleteId">
+                                                <button
+                                                    type="submit"
+                                                    name="delete"
+                                                    value="Delete"
+                                                    class="py-1 px-0.5 ml-1"
+                                                >
+                                                    <img class="h-auto w-4" src="../assets/delete.png" alt="Delete">
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <p class="text-white text-normal text-sm pl-9">
+                                        <?= $comment['content'] ?>
+                                    </p>
+                                </div>
+                            <?php } ?>
+                        <?php } ?>
                     </div>
                 </div>
             <?php } ?>
