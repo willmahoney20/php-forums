@@ -18,6 +18,8 @@ $router->mount('/posts', function () use ($router) {
 
 		if($router->getRequestMethod() === 'POST' && isset($_POST['submit'])){
 			(new Posts)->createPost();
+		} elseif($router->getRequestMethod() === 'POST' && isset($_POST['delete'])){
+			(new Posts)->deletePost();
 		}
 
 		$posts = (new Posts)->getAllPosts();
@@ -45,7 +47,13 @@ $router->mount('/posts', function () use ($router) {
 		require_once 'views/post-edit.php';
 	});
 
-	$router->match('GET', '/(\w+)', function ($hash){
+	$router->match('GET|POST', '/(\w+)', function ($hash){
+		global $router;
+		
+		if($router->getRequestMethod() === 'POST' && isset($_POST['delete'])){
+			(new Posts)->deletePost();
+		}
+
 		$post = (new Posts)->getOnePost($hash);
 
 		require_once 'views/post.php';

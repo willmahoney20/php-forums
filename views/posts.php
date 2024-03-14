@@ -68,16 +68,12 @@
                             </div>
                         </div>
                         <div class="flex flex-row">
-                            <button
-                                class="py-1 px-0.5"
-                                onClick="handleOptions(<?= $post['id']; ?>)"
-                            >
-                                <img class="h-auto w-4" src="../assets/editing.png" alt="Edit">
-                            </button>
-                            <form
-                                action="<?= htmlspecialchars($_SERVER["PHP_SELF"]); ?>"
-                                method="POST"
-                            >
+                            <a href="<?= '/posts/edit/' . $post['id']; ?>">
+                                <button class="py-1 px-0.5">
+                                    <img class="h-auto w-4" src="../assets/editing.png" alt="Edit">
+                                </button>
+                            </a>
+                            <form method="POST">
                                 <input value="<?= $post['id']; ?>" type="hidden" name="deleteId">
                                 <button
                                     type="submit"

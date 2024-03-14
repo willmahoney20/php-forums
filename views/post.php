@@ -28,23 +28,20 @@
                             </div>
                         </div>
                         <div class="flex flex-row items-center">
-                            <button
-                                onClick="handleOptions(<?= $post['id']; ?>)"
-                            >
-                                <img class="h-auto w-4" src="../assets/editing.png" alt="Edit">
-                            </button>
-                            <form
-                                action="<?= htmlspecialchars($_SERVER["PHP_SELF"]); ?>"
-                                method="POST"
-                                class="flex items-center"
-                            >
+                            <a href="<?= '/posts/edit/' . $post['id']; ?>">
+                                <button class="py-1 px-0.5">
+                                    <img class="h-auto w-4" src="../assets/editing.png" alt="Edit">
+                                </button>
+                            </a>
+                            <form method="POST">
                                 <input value="<?= $post['id']; ?>" type="hidden" name="deleteId">
                                 <button
                                     type="submit"
                                     name="delete"
                                     value="Delete"
+                                    class="py-1 px-0.5 ml-1"
                                 >
-                                    <img class="h-auto w-4 mx-0.5 ml-1.5" src="../assets/delete.png" alt="Delete">
+                                    <img class="h-auto w-4" src="../assets/delete.png" alt="Delete">
                                 </button>
                             </form>
                         </div>

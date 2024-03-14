@@ -36,12 +36,12 @@ class Posts {
 		global $db;
 
 		$db->query("
-				INSERT INTO forum_posts (content, user_id)
-				VALUES (:content, :user_id)
-			", [
-				'content' => htmlspecialchars($_POST['content']),
-				'user_id' => 1
-			]);
+			INSERT INTO forum_posts (content, user_id)
+			VALUES (:content, :user_id)
+		", [
+			'content' => htmlspecialchars($_POST['content']),
+			'user_id' => 1
+		]);
 
 		Helpers::redirectSelf();
 	}
@@ -50,13 +50,26 @@ class Posts {
 		global $db;
 
 		$db->query("
-				UPDATE forum_posts
-				SET content = :content
-				WHERE id = :id
-			", [
-				'content' => htmlspecialchars($_POST['content']),
-				'id' => $_POST['id']
-			]);
+			UPDATE forum_posts
+			SET content = :content
+			WHERE id = :id
+		", [
+			'content' => htmlspecialchars($_POST['content']),
+			'id' => $_POST['id']
+		]);
+
+		header("Location: " . "/posts");
+	}
+
+	public function deletePost(){
+		global $db;
+
+		$db->query("
+			DELETE FROM forum_posts
+			WHERE id = :id
+		", [
+			'id' => $_POST['deleteId']
+		]);
 
 		header("Location: " . "/posts");
 	}
