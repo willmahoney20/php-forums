@@ -49,7 +49,7 @@
                     <p class="text-white text-normal text-sm">
                         <?= $post->content ?>
                     </p>
-                    <div class="flex flex-row justify-between items-center mt-3">
+                    <div class="flex flex-row justify-between items-center mt-3 mb-6">
                         <p class="text-white text-xs font-semibold">
                             0 votes
                         </p>
@@ -57,8 +57,6 @@
                             <?= $post->comments_count == 1 ? '1 comment' : $post->comments_count . ' comments' ?>
                         </p>
                     </div>
-
-                    <hr class="border-zinc-800 my-6" />
                     
                     <?php include('partials/post-form.php'); ?>
 

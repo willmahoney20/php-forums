@@ -49,7 +49,8 @@ class Posts {
 							'profile_picture', comment_users.profile_picture,
 							'content', forum_comments.content,
 							'created', forum_comments.created,
-							'parent_id', forum_comments.parent_id
+							'parent_id', forum_comments.parent_id,
+							'status', forum_comments.status
 						)
 					) AS comments,
 					COUNT(forum_comments.id) AS comments_count

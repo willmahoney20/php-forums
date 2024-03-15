@@ -55,11 +55,15 @@ $router->mount('/posts', function () use ($router) {
 			(new Posts)->deletePost();
 		} elseif($router->getRequestMethod() === 'POST' && isset($_POST['submit'])){
 			(new Comments)->createComment($hash);
+		} elseif($router->getRequestMethod() === 'POST' && isset($_POST['deleteComment'])){
+			(new Comments)->deleteComment();
 		}
 
 		$output = (new Posts)->getOnePost($hash);
 		$post = $output->post;
 		$comments = $output->comments;
+
+		$content = '';
 
 		$pageJS[] = $CFG->base_url . 'js/post.js';
 		$pageJS[] = $CFG->base_url . 'js/comments.js';

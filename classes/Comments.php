@@ -11,7 +11,21 @@ class Comments {
             'post_id' => $hash,
 			'content' => htmlspecialchars($_POST['content']),
 			'user_id' => 2,
-            'parent_id' => 0
+            'parent_id' => $_POST['parentId'] ? $_POST['parentId'] : 0
+		]);
+
+		Helpers::redirectSelf();
+	}
+
+	public function deleteComment(){
+		global $db;
+
+		$db->query("
+            UPDATE forum_comments
+            SET status = 0
+            WHERE id = :id
+		", [
+			'id' => $_POST['deleteId']
 		]);
 
 		Helpers::redirectSelf();
