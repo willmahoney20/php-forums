@@ -28,13 +28,14 @@ function renderComments(comments, embedded = 0) {
     comments.forEach((comment, index) => {
         let mb = index === comments.length - 1 ? ' mb-0 ' : ' mb-8 '
         let mt = index !== 0 ? ' mt-0 ' : ' mt-6 '
+        let pp = comment.profile_picture ? comment.profile_picture : '../assets/propic.png' // this is the comment user's profile picture to render
         html += '<li class="relative w-full' + mb + mt + '">'
             if(comment.replies && comment.replies.length > 0){
                 html += '<div class="border-l border-zinc-600 absolute top-10 left-4 z-0" style="height: calc(100% - 44px)"></div>'
             }
             html += '<div class="flex flex-row justify-between items-center mb-2">'
                 html += '<div class="flex flex-row items-center">'
-                    html += '<img class="h-8 w-8 rounded-2xl mr-1" src="../assets/propic.png" alt="Logo">'
+                    html += '<img class="h-8 w-8 rounded-2xl mr-1" src="' + pp + '" alt="Logo">'
                     html += '<div class="flex flex-col">'
                         html += '<h6 class="text-white text-xs font-bold mb-0">@' + comment.username + '</h6>'
                         html += '<p class="text-white text-xs font-semibold opacity-70">' + datePosted(comment.created) + '</p>'

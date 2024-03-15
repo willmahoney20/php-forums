@@ -6,7 +6,7 @@ class Posts {
 
 		$recs = $db
 			->query("
-				SELECT forum_posts.*, forum_users.username
+				SELECT forum_posts.*, forum_users.username, forum_users.profile_picture
 				FROM forum_posts
 				JOIN forum_users ON forum_posts.user_id = forum_users.id
 				ORDER BY forum_posts.created DESC;
@@ -28,10 +28,12 @@ class Posts {
 				SELECT
 					forum_posts.*,
 					forum_users.username,
+					forum_users.profile_picture,
 					JSON_ARRAYAGG(
 						JSON_OBJECT(
 							'id', forum_comments.id,
 							'username', comment_users.username,
+							'profile_picture', comment_users.profile_picture,
 							'content', forum_comments.content,
 							'created', forum_comments.created,
 							'parent_id', forum_comments.parent_id
@@ -56,6 +58,7 @@ class Posts {
 		$post->id = $rec['id'];
 		$post->user_id = $rec['user_id'];
 		$post->username = $rec['username'];
+		$post->profile_picture = $rec['profile_picture'];
 		$post->content = $rec['content'];
 		$post->created = $rec['created'];
 
@@ -76,7 +79,7 @@ class Posts {
 
 		$rec = $db
 			->query("
-				SELECT forum_posts.*, forum_users.username
+				SELECT forum_posts.*, forum_users.username, forum_users.profile_picture
 				FROM forum_posts
 				JOIN forum_users ON forum_posts.user_id = forum_users.id
 				WHERE forum_posts.id = :id;

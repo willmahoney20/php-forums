@@ -17,7 +17,7 @@
                 <div class="bg-black w-full rounded-lg p-4 mb-0">
                     <div class="flex flex-row justify-between items-center mb-3">
                         <div class="flex flex-row items-center">
-                            <img class="h-8 w-8 rounded-2xl mr-1" src="../assets/propic.png" alt="Logo">
+                            <img class="h-8 w-8 rounded-2xl mr-1" src="<?= $post->profile_picture ? $post->profile_picture : '../assets/propic.png' ?>" alt="Logo">
                             <div class="flex flex-col">
                                 <h6 class="text-white text-xs font-bold mb-0">
                                     @<?= $post->username; ?>
