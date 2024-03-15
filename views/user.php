@@ -6,23 +6,14 @@
     </div>
 
     <div class="w-6/12 px-8 flex flex-col justify-start items-center">
-        <?php if(!$searchQuery){ ?>
-            <section class="bg-zinc-900 w-full flex flex-col items-center rounded-lg p-4 mb-6">
-                <div class="bg-black w-full rounded-lg p-4">
-                    <?php include('partials/post-form.php'); ?>
-                </div>
-            </section>
-        <?php } ?>
+        <section class="bg-zinc-900 w-full flex flex-col items-center rounded-lg p-4 mb-6">
+            <div class="relative bg-black h-16 w-full rounded-lg p-4 mb-12">
+                <img style="bottom: -32px; border-radius: 50%;" class="absolute left-4 h-16 w-16 mr-2" src="<?= $user['profile_picture'] ? $user['profile_picture'] : '../assets/propic.png' ?>" alt="Logo">
+            </div>
+        </section>
 
         <section class="bg-zinc-900 w-full flex flex-col rounded-lg p-4 mb-6">
-            <?php if($searchQuery){ ?>
-                <h2 class="text-white font-bold opacity-50 mb-1">SEARCH</h2>
-                <h4 class="text-white font-medium text-sm opacity-50 mb-2">
-                    <?= count($posts) ?> result<?= count($posts) === 1 ? '' : 's' ?> found for "<?= $searchQuery ?>"
-                </h4>
-            <?php } else { ?>
-                <h2 class="text-white font-bold opacity-50 mb-2">EXPLORE</h2>
-            <?php } ?>
+            <h2 class="text-white font-bold opacity-50 mb-2">POSTS</h2>
             <?php forEach($posts as $index => $post){ ?>
                 <div class="bg-black w-full rounded-lg p-4 <?= ($index === array_key_last($posts)) ? 'mb-0' : 'mb-4'; ?>">
                     <div class="flex flex-row justify-between items-center mb-3">

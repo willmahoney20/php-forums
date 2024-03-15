@@ -20,7 +20,7 @@
                             <img class="h-8 w-8 rounded-2xl mr-1" src="<?= $post->profile_picture ? $post->profile_picture : '../assets/propic.png' ?>" alt="Logo">
                             <div class="flex flex-col">
                                 <h6 class="text-white text-xs font-bold mb-0">
-                                    @<?= $post->username; ?>
+                                    <?= $post->username; ?>
                                 </h6>
                                 <p class="text-white text-xs font-semibold opacity-70">
                                     <?= Helpers::datePosted($post->created) ?>

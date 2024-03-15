@@ -38,7 +38,7 @@ function renderComments(comments, embedded = 0) {
                 html += '<div class="flex flex-row items-center">'
                     html += '<img class="h-8 w-8 rounded-2xl mr-1" src="' + pp + '" alt="Logo">'
                     html += '<div class="flex flex-col">'
-                        html += '<h6 class="text-white text-xs font-bold mb-0">@' + comment.username + '</h6>'
+                        html += '<h6 class="text-white text-xs font-bold mb-0">' + comment.username + '</h6>'
                         html += '<p class="text-white text-xs font-semibold opacity-70">' + datePosted(comment.created) + '</p>'
                     html += '</div>'
                 html += '</div>'

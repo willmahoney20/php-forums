@@ -2,6 +2,7 @@
 
 require_once 'classes/Posts.php';
 require_once 'classes/Comments.php';
+require_once 'classes/Users.php';
 
 $pageJS = [];
 
@@ -75,5 +76,15 @@ $router->mount('/posts', function () use ($router) {
 		$pageJS[] = $CFG->base_url . 'js/comments.js';
 
 		require_once 'views/post.php';
+	});
+});
+
+
+
+$router->mount('/users', function () use ($router) {
+	$router->match('GET', '/(\w+)', function ($hash){	
+		$user = (new Users)->getOneUser($hash);
+
+		require_once 'views/user.php';
 	});
 });
