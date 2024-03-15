@@ -23,8 +23,6 @@ function datePosted(dateString){
 function renderComments(comments, embedded = 0) {
     let html = '<ul style="margin-left: ' + (embedded === 0 ? '0' : '36') + 'px">'
 
-    console.log('hey', comments)
-
     comments.forEach((comment, index) => {
         let mb = index === comments.length - 1 ? ' mb-0 ' : ' mb-8 '
         let mt = index !== 0 ? ' mt-0 ' : ' mt-6 '

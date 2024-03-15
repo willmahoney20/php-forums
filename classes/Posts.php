@@ -6,10 +6,23 @@ class Posts {
 
 		$recs = $db
 			->query("
-				SELECT forum_posts.*, forum_users.username, forum_users.profile_picture
-				FROM forum_posts
-				JOIN forum_users ON forum_posts.user_id = forum_users.id
-				ORDER BY forum_posts.created DESC;
+				SELECT
+					forum_posts.*,
+					forum_users.username,
+					forum_users.profile_picture,
+					COUNT(forum_comments.id) AS comments_count
+				FROM
+					forum_posts
+				JOIN
+					forum_users ON forum_posts.user_id = forum_users.id
+				LEFT JOIN
+					forum_comments ON forum_posts.id = forum_comments.post_id
+				GROUP BY
+					forum_posts.id,
+					forum_users.username,
+					forum_users.profile_picture
+				ORDER BY
+					forum_posts.created DESC;
 			")
 			->findAll();
 
@@ -38,7 +51,8 @@ class Posts {
 							'created', forum_comments.created,
 							'parent_id', forum_comments.parent_id
 						)
-					) AS comments
+					) AS comments,
+					COUNT(forum_comments.id) AS comments_count
 				FROM
 					forum_posts
 				JOIN
@@ -61,6 +75,7 @@ class Posts {
 		$post->profile_picture = $rec['profile_picture'];
 		$post->content = $rec['content'];
 		$post->created = $rec['created'];
+		$post->comments_count = $rec['comments_count'];
 
 		$output->post = $post;
 		

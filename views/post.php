@@ -54,7 +54,7 @@
                             0 votes
                         </p>
                         <p class="text-white text-xs font-semibold">
-                            <?= count($comments) == 1 ? '1 comment' : count($comments) . ' comments' ?>
+                            <?= $post->comments_count == 1 ? '1 comment' : $post->comments_count . ' comments' ?>
                         </p>
                     </div>
 

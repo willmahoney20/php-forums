@@ -113,7 +113,7 @@
                         </p>
                         <a href="/posts/<?= $post['id'] ?>">
                             <p class="text-white text-xs font-semibold">
-                                0 comments
+                                <?= $post['comments_count'] == 1 ? '1 comment' : $post['comments_count'] . ' comments' ?>
                             </p>
                         </a>
                     </div>

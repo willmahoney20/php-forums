@@ -65,7 +65,7 @@ class Helpers {
 	}
 
     // adds a notification to the _SESSION super global
-	public static function setNotification($notification = '', $type = 'default') {
+	public static function setNotification($notification = '', $type = 'default'){
 		$_SESSION['notifications'][$type][] = $notification;
 	}
 }
