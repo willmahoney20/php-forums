@@ -66,44 +66,7 @@
                                 There are currently no comments on this post.
                             </p>
                         <?php } else { ?>
-                            <?php forEach($comments as $index => $comment){ ?>
-                                <div class="w-full <?= ($index === array_key_last($comments)) ? 'mb-0' : 'mb-6'; ?>">
-                                    <div class="flex flex-row justify-between items-center mb-3">
-                                        <div class="flex flex-row items-center">
-                                            <img class="h-8 w-8 rounded-2xl mr-1" src="../assets/propic.png" alt="Logo">
-                                            <div class="flex flex-col">
-                                                <h6 class="text-white text-xs font-bold mb-0">
-                                                    @<?= $comment['username']; ?>
-                                                </h6>
-                                                <p class="text-white text-xs font-semibold opacity-70">
-                                                    <?= Helpers::datePosted($comment['created']) ?>
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <div class="flex flex-row items-center">
-                                            <a href="<?= '/posts/edit/' . $comment['id']; ?>">
-                                                <button class="py-1 px-0.5">
-                                                    <img class="h-auto w-4" src="../assets/editing.png" alt="Edit">
-                                                </button>
-                                            </a>
-                                            <form method="POST">
-                                                <input value="<?= $comment['id']; ?>" type="hidden" name="deleteId">
-                                                <button
-                                                    type="submit"
-                                                    name="delete"
-                                                    value="Delete"
-                                                    class="py-1 px-0.5 ml-1"
-                                                >
-                                                    <img class="h-auto w-4" src="../assets/delete.png" alt="Delete">
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    <p class="text-white text-normal text-sm pl-9">
-                                        <?= $comment['content'] ?>
-                                    </p>
-                                </div>
-                            <?php } ?>
+                            <div id="comments-container"></div>
                         <?php } ?>
                     </div>
                 </div>
@@ -115,3 +78,11 @@
 </div>
 
 <?php include('views/partials/footer.php'); ?>
+
+<script>
+    const js_comments = <?= json_encode($comments); ?>
+
+    const commentsHtml = renderComments(js_comments)
+
+    document.getElementById('comments-container').innerHTML = commentsHtml
+</script>

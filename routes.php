@@ -49,8 +49,8 @@ $router->mount('/posts', function () use ($router) {
 	});
 
 	$router->match('GET|POST', '/(\w+)', function ($hash){
-		global $router;
-		
+		global $router, $CFG, $pageJS;
+
 		if($router->getRequestMethod() === 'POST' && isset($_POST['delete'])){
 			(new Posts)->deletePost();
 		}
@@ -58,6 +58,8 @@ $router->mount('/posts', function () use ($router) {
 		$output = (new Posts)->getOnePost($hash);
 		$post = $output->post;
 		$comments = $output->comments;
+
+		$pageJS[] = $CFG->base_url . 'js/comments.js';
 
 		require_once 'views/post.php';
 	});

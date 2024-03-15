@@ -64,7 +64,7 @@ class Posts {
 		$comments = json_decode($rec['comments']);
 		
 		if($comments[0] && $comments[0]->id){
-			$output->comments = json_decode($rec['comments'], true);
+			$output->comments = (new Comments)->organiseComments($comments);
 		}
 
 		return $output;
