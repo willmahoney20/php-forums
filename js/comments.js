@@ -48,13 +48,15 @@ function renderComments(comments, embedded = 0) {
                     html += '<img style="height: 14px; width: 14px" src="../../assets/new.png" alt="Logo">'
                     html += '<p class="text-zinc-500 text-normal text-xs font-semibold ml-1">Reply</p>'
                 html += '</button>'
-                html += '<form method="POST" class="ml-4">'
-                    html += '<input value="' + comment.id + '" type="hidden" name="deleteId">'
-                    html += '<button type="submit" name="deleteComment" class="flex flex-row items-center">'
-                        html += '<img style="height: 13px; width: 13px" src="../../assets/delete.png" alt="Logo">'
-                        html += '<p class="text-zinc-500 text-normal text-xs font-semibold ml-1">Delete</p>'
-                    html += '</button>'
-                html += '</form>'
+                if(comment.status){
+                    html += '<form method="POST" class="ml-4">'
+                        html += '<input value="' + comment.id + '" type="hidden" name="deleteId">'
+                        html += '<button type="submit" name="deleteComment" class="flex flex-row items-center">'
+                            html += '<img style="height: 13px; width: 13px" src="../../assets/delete.png" alt="Logo">'
+                            html += '<p class="text-zinc-500 text-normal text-xs font-semibold ml-1">Delete</p>'
+                        html += '</button>'
+                    html += '</form>'
+                }
             html += '</div>'
 
             html += '<form id="commentForm' + comment.id + '" class="hidden flex-col w-full pl-9 mt-2" method="POST">'
