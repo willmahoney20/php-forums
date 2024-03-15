@@ -59,6 +59,7 @@ $router->mount('/posts', function () use ($router) {
 		$post = $output->post;
 		$comments = $output->comments;
 
+		$pageJS[] = $CFG->base_url . 'js/post.js';
 		$pageJS[] = $CFG->base_url . 'js/comments.js';
 
 		require_once 'views/post.php';

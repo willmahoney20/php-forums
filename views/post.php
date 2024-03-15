@@ -59,6 +59,8 @@
                     </div>
 
                     <hr class="border-zinc-800 my-6" />
+                    
+                    <?php include('partials/post-form.php'); ?>
 
                     <div>
                         <?php if(!$comments || count($comments) < 1){ ?>
