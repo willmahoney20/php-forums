@@ -144,6 +144,13 @@ class Posts {
 			'id' => $_POST['deleteId']
 		]);
 
+		$db->query("
+			DELETE FROM forum_comments
+			WHERE post_id = :id
+		", [
+			'id' => $_POST['deleteId']
+		]);
+
 		header("Location: " . "/posts");
 	}
 }

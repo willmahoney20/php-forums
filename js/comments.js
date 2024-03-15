@@ -21,15 +21,16 @@ function datePosted(dateString){
 }
 
 function renderComments(comments, embedded = 0) {
-    let html = '<ul style="margin-left: ' + (embedded === 0 ? '0' : '36') + 'px">'
+    let html = '<ul style="margin-left: ' + (embedded === 0 ? '0' : '36') + 'px" class="mt-4">'
 
     comments.forEach((comment, index) => {
-        let mb = index === comments.length - 1 ? ' mb-0 ' : ' mb-8 '
-        let mt = index !== 0 ? ' mt-0 ' : ' mt-6 '
+        if(!comment.status && comment.replies < 1 && embedded < 1) return
+
+        let mb = index === comments.length - 1 ? ' mb-0 ' : ' mb-6 '
         let pp = comment.profile_picture ? comment.profile_picture : '../assets/propic.png'
         let content = comment.status ? comment.content : '[DELETED]'
         
-        html += '<li class="relative w-full' + mb + mt + '">'
+        html += '<li class="relative w-full' + mb + '">'
             if(comment.replies && comment.replies.length > 0){
                 html += '<div class="border-l border-zinc-600 absolute top-10 left-4 z-0" style="height: calc(100% - 44px)"></div>'
             }

@@ -66,7 +66,7 @@
                                 There are currently no comments on this post.
                             </p>
                         <?php } else { ?>
-                            <div id="comments-container"></div>
+                            <div id="comments-container" class="mt-4"></div>
                         <?php } ?>
                     </div>
                 </div>
