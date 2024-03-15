@@ -115,10 +115,13 @@ class Router {
 
     // check if a pattern matches a given URI
     private function matchPattern($pattern, $uri){
+        // Remove query parameters from the URI for comparison
+        $uriWithoutParams = strtok($uri, '?');
+
         $pattern = preg_replace('/\/{(.*?)}/', '/(.*?)', $pattern);
         
         // we may have a match!
-        return boolval(preg_match_all('#^' . $pattern . '$#', $uri, $matches, PREG_OFFSET_CAPTURE));
+        return boolval(preg_match_all('#^' . $pattern . '$#', $uriWithoutParams, $matches, PREG_OFFSET_CAPTURE));
     }
 
     // returns the current relative URI

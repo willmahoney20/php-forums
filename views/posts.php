@@ -6,14 +6,23 @@
     </div>
 
     <div class="w-6/12 px-8 flex flex-col justify-start items-center">
-        <section class="bg-zinc-900 w-full flex flex-col items-center rounded-lg p-4 mb-6">
-            <div class="bg-black w-full rounded-lg p-4">
-                <?php include('partials/post-form.php'); ?>
-            </div>
-        </section>
+        <?php if(!$searchQuery){ ?>
+            <section class="bg-zinc-900 w-full flex flex-col items-center rounded-lg p-4 mb-6">
+                <div class="bg-black w-full rounded-lg p-4">
+                    <?php include('partials/post-form.php'); ?>
+                </div>
+            </section>
+        <?php } ?>
 
         <section class="bg-zinc-900 w-full flex flex-col rounded-lg p-4 mb-6">
-            <h2 class="text-white font-bold opacity-50 mb-2">EXPLORE</h2>
+            <?php if($searchQuery){ ?>
+                <h2 class="text-white font-bold opacity-50 mb-1">SEARCH</h2>
+                <h4 class="text-white font-medium text-sm opacity-50 mb-2">
+                    <?= count($posts) ?> result<?= count($posts) === 1 ? '' : 's' ?> found for "<?= $searchQuery ?>"
+                </h4>
+            <?php } else { ?>
+                <h2 class="text-white font-bold opacity-50 mb-2">EXPLORE</h2>
+            <?php } ?>
             <?php forEach($posts as $index => $post){ ?>
                 <div class="bg-black w-full rounded-lg p-4 <?= ($index === array_key_last($posts)) ? 'mb-0' : 'mb-4'; ?>">
                     <div class="flex flex-row justify-between items-center mb-3">
@@ -47,66 +56,11 @@
                             </form>
                         </div>
                     </div>
-                    
-                    <?php if($editing == $post['id']){ ?>
-                        <form
-                            class="flex flex-col w-full"
-                            action="<?= htmlspecialchars($_SERVER["PHP_SELF"]); ?>"
-                            method="POST"
-                        >
-                            <div class="relative flex w-full">
-                                <input value="<?= $post['id']; ?>" type="hidden" name="editId">
-                                <input type="hidden" id="editInput" name="editContent">
-                                <span
-                                    id="editContent"
-                                    name="editContent"
-                                    contenteditable
-                                    class="bg-transparent text-white text-normal text-sm z-20 w-full"
-                                    oninput="checkEditContent()"
-                                >
-                                    <?= $edited_content; ?>
-                                </span>
-                                <p
-                                    id="editPlaceholder"
-                                    class="absolute top-0 text-white text-normal text-sm opacity-50 whitespace-nowrap z-10"
-                                    style="<?php if($editError){echo "color: red";} ?>;"
-                                >Write Something...</p>
-                            </div>
-                            <div
-                                class="flex flex-row justify-between items-center w-full border-t border-zinc-800 mt-4 pt-4"
-                                style="<?php if($editError){echo "border-color: red";} ?>;"
-                            >
-                                <div>
-                                    <button
-                                        class="bg-transparent font-medium text-white border-2 border-white rounded-lg h-8 px-3 z-20"
-                                        onClick="handleOptions(<?= $post['id']; ?>)"
-                                    >
-                                        Cancel
-                                    </button>
-                                </div>
-                                <div class="flex flex-row items-center">
-                                    <div id="edit_box" class="pro_box z-10">
-                                        <div class="pro_percent">
-                                            <svg>
-                                                <circle cx="14" cy="14" r="14"></circle>
-                                                <circle id="edit_c2" cx="14" cy="14" r="14"></circle>
-                                            </svg>
-                                            <div id="edit_num" class="pro_number">
-                                                <h4></h4>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <input type="submit" name="edit" value="Edit" class="bg-green-500 font-medium text-white rounded-lg h-8 px-3 ml-2 z-20 cursor-pointer">
-                                </div>
-                            </div>
-                        </form>
-                    <?php } else { ?>
-                        <a href="/posts/<?= $post['id'] ?>">
-                            <p class="text-white text-normal text-sm">
-                                <?= $post['content'] ?>
-                            </p>
-                        </a>
-                    <?php } ?>
+                    <a href="/posts/<?= $post['id'] ?>">
+                        <p class="text-white text-normal text-sm">
+                            <?= $post['content'] ?>
+                        </p>
+                    </a>
                     <div class="flex flex-row justify-between items-center mt-3">
                         <p class="text-white text-xs font-semibold">
                             0 votes

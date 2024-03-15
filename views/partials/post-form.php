@@ -1,6 +1,6 @@
 <form class="flex flex-col w-full" method="POST">
     <div class="flex flex-row w-full">
-        <img class="h-8 w-8 rounded-2xl mr-2" src="../assets/propic.png" alt="Logo">
+        <img class="h-8 w-8 rounded-2xl mr-2" src="../../assets/propic.png" alt="Logo">
         <div class="relative flex w-full mt-1">
             <input type="hidden" id="contentInput" name="content">
             <span
@@ -19,7 +19,7 @@
     <div class="flex flex-row justify-end items-center w-full border-t border-zinc-800 mt-4 pt-4">
         <div class="pro_box z-10">
             <div class="pro_percent">
-                <svg>
+                <svg class="max-w-8 max-h-8">
                     <circle cx="14" cy="14" r="14"></circle>
                     <circle cx="14" cy="14" r="14"></circle>
                 </svg>

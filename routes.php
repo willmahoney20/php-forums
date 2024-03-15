@@ -17,15 +17,21 @@ $router->mount('/posts', function () use ($router) {
 	$router->match('GET|POST', '/', function (){
 		global $router, $CFG, $pageJS;
 
-		if($router->getRequestMethod() === 'POST' && isset($_POST['submit'])){
-			(new Posts)->createPost();
-		} elseif($router->getRequestMethod() === 'POST' && isset($_POST['delete'])){
-			(new Posts)->deletePost();
+		if(isset($_GET['search'])) {
+			$searchQuery = $_GET['search'];
+
+			$posts = (new Posts)->searchPosts();
+		} else {
+			if($router->getRequestMethod() === 'POST' && isset($_POST['submit'])){
+				(new Posts)->createPost();
+			} elseif($router->getRequestMethod() === 'POST' && isset($_POST['delete'])){
+				(new Posts)->deletePost();
+			}
+	
+			$posts = (new Posts)->getAllPosts();
+	
+			$pageJS[] = $CFG->base_url . 'js/post.js';
 		}
-
-		$posts = (new Posts)->getAllPosts();
-
-		$pageJS[] = $CFG->base_url . 'js/post.js';
 
 		require_once 'views/posts.php';
 	});

@@ -82,7 +82,9 @@
 <script>
     const js_comments = <?= json_encode($comments); ?>
 
-    const commentsHtml = renderComments(js_comments)
+    if(js_comments.length > 0){
+        const commentsHtml = renderComments(js_comments)
 
-    document.getElementById('comments-container').innerHTML = commentsHtml
+        document.getElementById('comments-container').innerHTML = commentsHtml
+    }
 </script>

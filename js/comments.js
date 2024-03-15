@@ -72,7 +72,7 @@ function renderComments(comments, embedded = 0) {
                 html += '<div class="flex flex-row justify-end items-center w-full border-t border-zinc-800 mt-2 pt-2">'
                     html += '<div id="comProBox' + comment.id + '" class="hidden pro_box z-10">'
                         html += '<div class="pro_percent">'
-                            html += '<svg>'
+                            html += '<svg class="max-w-8 max-h-8">'
                                 html += '<circle id="c1' + comment.id + '" cx="14" cy="14" r="14"></circle>'
                                 html += '<circle id="c2' + comment.id + '" cx="14" cy="14" r="14"></circle>'
                             html += '</svg>'

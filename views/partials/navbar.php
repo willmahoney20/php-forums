@@ -10,20 +10,24 @@
     <body class="relative bg-black">
         <div class="min-h-screen flex flex-col justify-between">        
             <div class="container mx-auto flex flex-row justify-between items-center p-4">
-                <div class="flex flex-row">
-                    <img class="h-8 w-8" src="../../assets/logo.png" alt="Logo">
-                    <div class="flex flex-col ml-2">
-                        <h3 class="text-white text-sm font-bold mb-0">FORUX</h3>
-                        <h5 class="text-white text-xs font-semibold opacity-70">PHP FORUMS</h5>
+                <a href="/posts">
+                    <div class="flex flex-row">
+                        <img class="h-8 w-8" src="../../assets/logo.png" alt="Logo">
+                        <div class="flex flex-col ml-2">
+                            <h3 class="text-white text-sm font-bold mb-0">FORUX</h3>
+                            <h5 class="text-white text-xs font-semibold opacity-70">PHP FORUMS</h5>
+                        </div>
                     </div>
-                </div>
+                </a>
                 <div class="flex flex-row">
-                    <div class="relative flex items-center border border-gray-500 rounded-lg h-8 w-60 pl-2">
-                        <img class="mr-1 h-4 w-4" src="../../assets/search.png" alt="Logo">
-                        <p class="text-sm font-normal text-gray-400">
-                            Search...
-                        </p>
-                    </div>
+                    <form method='GET' action='/posts'>
+                        <div class="relative flex items-center border border-gray-500 rounded-lg h-8 w-60 pl-2">
+                            <button type="submit" class="mr-1 h-5 w-5">
+                                <img class="h-5 w-5" src="../../assets/search.png" alt="Logo">
+                            </button>
+                            <input name="search" class="w-full bg-transparent text-sm font-normal text-gray-400 pr-2" placeholder="Search...">
+                        </div>
+                    </form>
                     <img class="h-8 w-8 rounded-2xl ml-3" src="../../assets/propic.png" alt="Logo">
                     <div class="flex flex-col ml-1">
                         <h3 class="text-white text-xs font-bold mb-0">Barry Allen</h3>

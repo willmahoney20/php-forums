@@ -95,7 +95,7 @@ class Posts {
 
 		$rec = $db
 			->query("
-				SELECT forum_posts.*, forum_users.username, forum_users.profile_picture
+				SELECT forum_posts.*, forum_users.username
 				FROM forum_posts
 				JOIN forum_users ON forum_posts.user_id = forum_users.id
 				WHERE forum_posts.id = :id;
@@ -103,6 +103,39 @@ class Posts {
 			->findOne();
 
 		return $rec;
+	}
+
+	// search query for posts
+	public function searchPosts(){
+		global $db;
+
+		$recs = $db
+			->query("
+				SELECT
+					forum_posts.*,
+					forum_users.username,
+					forum_users.profile_picture,
+					COUNT(forum_comments.id) AS comments_count
+				FROM
+					forum_posts
+				JOIN
+					forum_users ON forum_posts.user_id = forum_users.id
+				LEFT JOIN
+					forum_comments ON forum_posts.id = forum_comments.post_id
+				WHERE
+					forum_posts.content LIKE :search
+				GROUP BY
+					forum_posts.id,
+					forum_users.username,
+					forum_users.profile_picture
+				ORDER BY
+					forum_posts.created DESC;
+			", [
+				'search' => '%' . htmlspecialchars($_GET['search']) . '%'
+			])
+			->findAll();
+
+		return $recs;
 	}
 
 	public function createPost(){
