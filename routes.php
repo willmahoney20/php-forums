@@ -53,6 +53,8 @@ $router->mount('/posts', function () use ($router) {
 
 		if($router->getRequestMethod() === 'POST' && isset($_POST['delete'])){
 			(new Posts)->deletePost();
+		} elseif($router->getRequestMethod() === 'POST' && isset($_POST['submit'])){
+			(new Comments)->createComment($hash);
 		}
 
 		$output = (new Posts)->getOnePost($hash);
