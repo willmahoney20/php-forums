@@ -83,8 +83,12 @@ $router->mount('/posts', function () use ($router) {
 
 $router->mount('/users', function () use ($router) {
 	$router->match('GET', '/(\w+)', function ($hash){	
+		global $CFG, $pageJS;
+
 		$user = (new Users)->getOneUser($hash);
 
+		$posts = (new Posts)->getUserPosts();
+		
 		require_once 'views/user.php';
 	});
 });

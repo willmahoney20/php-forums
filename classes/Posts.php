@@ -29,6 +29,40 @@ class Posts {
 		return $recs;
 	}
 
+	// get all posts from one user
+	public function getUserPosts(){
+		global $db;
+
+		$recs = $db
+			->query("
+				SELECT
+					forum_posts.*,
+					forum_users.username,
+					forum_users.profile_picture,
+					COUNT(forum_comments.id) AS comments_count
+				FROM
+					forum_posts
+				JOIN
+					forum_users ON forum_posts.user_id = forum_users.id
+				LEFT JOIN
+					forum_comments ON forum_posts.id = forum_comments.post_id
+				WHERE
+					forum_posts.user_id = :user_id OR forum_users.username = LOWER(:username)
+				GROUP BY
+					forum_posts.id,
+					forum_users.username,
+					forum_users.profile_picture
+				ORDER BY
+					forum_posts.created DESC;
+			", [
+				'user_id' => 1,
+				'username' => 'will'
+			])
+			->findAll();
+
+		return $recs;
+	}
+
 	// gets all the data for one post
 	public function getOnePost($hash){
 		global $db;
