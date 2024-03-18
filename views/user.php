@@ -6,9 +6,32 @@
     </div>
 
     <div class="w-6/12 px-8 flex flex-col justify-start items-center">
-        <section class="bg-zinc-900 w-full flex flex-col items-center rounded-lg p-4 mb-6">
-            <div class="relative bg-black h-16 w-full rounded-lg p-4 mb-12">
-                <img style="bottom: -32px; border-radius: 50%;" class="absolute left-4 h-16 w-16 mr-2" src="<?= $user['profile_picture'] ? $user['profile_picture'] : '../assets/propic.png' ?>" alt="Logo">
+        <section class="bg-zinc-900 w-full flex flex-col rounded-lg p-4 mb-6">
+            <div class="relative bg-black h-32 w-full rounded-lg p-4 mb-16">
+                <img style="bottom: -64px; border-radius: 50%;" class="absolute left-4 h-32 w-32 mr-2" src="<?= $user['profile_picture'] ? $user['profile_picture'] : '../assets/propic_256.png' ?>" alt="Logo">
+            </div>
+            <div class="p-4">
+                <div class="mb-4">
+                    <h4 class="text-white text-2xl font-bold">Will Mahoney</h4>
+                    <h6 class="text-white text-sm font-medium opacity-70">@will</h6>
+                </div>
+                <div class="mb-4">
+                    <p class="text-white text-sm font-light opacity-70">This is the profile text of this user, I don't have anything specific to say about this user, but I needed to fill some space.</p>
+                </div>
+                <div class="flex flex-row items-center mb-4">
+                    <p class="text-white text-sm font-bold">
+                        12 <span class="font-medium opacity-70">Following</span>
+                    </p>
+                    <p class="text-white text-sm font-bold ml-4">
+                        47 <span class="font-medium opacity-70">Followers</span>
+                    </p>
+                </div>
+                <div class="flex flex-row items-center">
+                    <img class="h-4 w-4" src="../assets/location.png" alt="Logo">
+                    <p class="text-white text-sm font-light opacity-70 ml-1">Paris, France</p>
+                    <img class="h-4 w-4 ml-4" src="../assets/calendar.png" alt="Logo">
+                    <p class="text-white text-sm font-light opacity-70 ml-1">Joined March 2024</p>
+                </div>
             </div>
         </section>
 
