@@ -74,7 +74,9 @@
         </section>
     </div>
 
-    <div class="w-3/12 border"></div>
+    <div class="w-3/12">
+        <?php include('partials/right-sidebar.php'); ?>
+    </div>
 </div>
 
 <?php include('views/partials/footer.php'); ?>
