@@ -19,6 +19,7 @@ $db = new Database();
 
 $router = new Router();
 
+require_once('constants.php');
 require_once 'routes.php';
 
 $router->handleRequest($_SERVER['REQUEST_METHOD']);

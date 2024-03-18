@@ -10,6 +10,16 @@ $router->match('GET', '/', function (){
 	echo 'Home page' . '<br />';
 });
 
+$router->match('GET|POST', '/signup', function (){
+	global $router;
+
+	if($router->getRequestMethod() === 'POST' && isset($_POST['submit'])){
+		(new Users)->createUser();
+	}
+
+	require_once 'views/signup.php';
+});
+
 $router->match('GET', '/login', function (){
 	require_once 'views/login.php';
 });
