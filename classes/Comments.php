@@ -10,7 +10,7 @@ class Comments {
 		", [
             'post_id' => $hash,
 			'content' => htmlspecialchars($_POST['content']),
-			'user_id' => 2,
+			'user_id' => $_SESSION['auth']->user->id,
             'parent_id' => $_POST['parentId'] ? $_POST['parentId'] : 0
 		]);
 

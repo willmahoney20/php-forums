@@ -23,7 +23,6 @@ class Helpers {
 
 		if($isTrue && $redirectUrl){
 			header('Location: ' . $redirectUrl);
-
 			exit();
 		}
 

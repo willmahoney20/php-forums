@@ -5,7 +5,7 @@
         <?php include('partials/left-sidebar.php'); ?>
     </div>
 
-    <div class="w-6/12 px-8 flex flex-col justify-start items-center">
+    <div class="w-7/12 px-8 flex flex-col justify-start items-center">
 
         <?php if($user){ ?>
             <section class="bg-zinc-900 w-full flex flex-col rounded-lg p-4 mb-6">
@@ -107,7 +107,7 @@
         <?php } ?>
     </div>
 
-    <div class="w-4/12 border"></div>
+    <div class="w-3/12 border"></div>
 </div>
 
 <?php include('views/partials/footer.php'); ?>
