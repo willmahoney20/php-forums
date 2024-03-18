@@ -76,13 +76,9 @@ class Helpers {
             $difference /= $lengths[$i];
         }
         
-        $difference = round($difference);
+        $difference = floor($difference);
         
-        if ($difference != 1) {
-            $periods[$i] .= "s";
-        }
-        
-        return "$difference $periods[$i] ago";
+        return $difference != 1 ? "$difference $periods[$i]s ago" : "$difference $periods[$i] ago";;
     }
 
     // gets the time in 'Month Year' (e.g. January 2021) format
