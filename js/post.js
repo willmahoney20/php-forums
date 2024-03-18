@@ -10,7 +10,7 @@ const checkTextContent = () => {
         submitBtn.style.backgroundColor = 'grey'
         submitBtn.disabled = true
     } else {
-        submitBtn.style.backgroundColor = ''
+        submitBtn.style.backgroundColor = '#22c55e'
         submitBtn.disabled = false
     }
 

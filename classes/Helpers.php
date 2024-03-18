@@ -17,6 +17,39 @@ class Helpers {
         die();
     }
 
+    // checks if a user is logged in
+	public static function isLoggedIn($redirectUrl = false){
+		$isTrue = (isset($_SESSION['auth']) && !empty($_SESSION['auth']));
+
+		if($isTrue && $redirectUrl){
+			header('Location: ' . $redirectUrl);
+
+			exit();
+		}
+
+		return $isTrue;
+	}
+
+    // check if the user is logged out
+	public static function isLoggedOut($redirectUrl = false) {
+		$isTrue = (!isset($_SESSION['auth']) || empty($_SESSION['auth']));
+
+		if($isTrue && $redirectUrl){
+			header('Location: ' . $redirectUrl);
+			exit();
+		}
+
+		return $isTrue;
+	}
+
+    // logs the user out by removing their session
+	public static function logout(){
+		unset($_SESSION['auth']);
+
+		header('Location: /login');
+		exit();
+	}
+
     // redirects the user to the current URI
 	public static function redirectSelf(){
 		global $CFG;

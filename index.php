@@ -17,6 +17,8 @@ $CFG = new Config();
 
 $db = new Database();
 
+session_start();
+
 $router = new Router();
 
 require_once('constants.php');

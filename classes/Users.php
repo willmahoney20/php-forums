@@ -6,6 +6,7 @@ class Users {
 		global $db;
 
 		$username = strtolower(trim($_POST['username']));
+		$email = strtolower(trim($_POST['email']));
 
 		if(preg_match("/^[a-zA-Z0-9_]{3,20}$/", $username) == 0){
 			Helpers::setNotification('Usernames must be 3-20 characters, and contain letters, numbers and underscores only.', 'signup-error');
@@ -25,7 +26,7 @@ class Users {
 				'status' => ACTIVE_STATUS,
 				'name' => $_POST['name'],
 				'username' => $username,
-				'email' => $_POST['email'],
+				'email' => $email,
 				'password' => password_hash($_POST['password'], PASSWORD_DEFAULT)
 			]);
 	

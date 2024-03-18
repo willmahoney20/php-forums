@@ -17,17 +17,17 @@
         </div>
     </div>
     <div class="flex flex-row justify-end items-center w-full border-t border-zinc-800 mt-4 pt-4">
-        <div class="pro_box z-10">
+        <div class="pro_box hidden z-10">
             <div class="pro_percent">
                 <svg class="max-w-8 max-h-8">
                     <circle cx="14" cy="14" r="14"></circle>
                     <circle cx="14" cy="14" r="14"></circle>
                 </svg>
-                <div class="pro_number">
+                <div class="pro_number hidden">
                     <h4></h4>
                 </div>
             </div>
         </div>
-        <input id="postBtn" type="submit" name="submit" value="Post" class="bg-green-500 font-medium text-white rounded-lg h-8 px-3 ml-2 z-20 cursor-pointer">
+        <input id="postBtn" type="submit" name="submit" value="Post" class="font-medium text-white rounded-lg h-8 px-3 ml-2 z-20 cursor-pointer" style="background-color: grey;">
     </div>
 </form>
