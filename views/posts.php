@@ -27,15 +27,17 @@
                 <div class="bg-black w-full rounded-lg p-4 <?= ($index === array_key_last($posts)) ? 'mb-0' : 'mb-4'; ?>">
                     <div class="flex flex-row justify-between items-center mb-3">
                         <div class="flex flex-row items-center">
-                            <img class="h-8 w-8 rounded-2xl mr-1" src="<?= $post['profile_picture'] ? $post['profile_picture'] : '../assets/propic.png' ?>" alt="Logo">
-                            <div class="flex flex-col">
-                                <h6 class="text-white text-xs font-bold mb-0">
-                                    <?= $post['username']; ?>
-                                </h6>
-                                <p class="text-white text-xs font-semibold opacity-70">
-                                    <?= Helpers::datePosted($post['created']) ?>
-                                </p>
-                            </div>
+                            <a href="/users/<?= $post['username']; ?>" class="flex flex-row items-center">
+                                <img class="h-8 w-8 rounded-2xl mr-1" src="<?= $post['profile_picture'] ? $post['profile_picture'] : '../assets/propic.png' ?>" alt="Logo">
+                                <div class="flex flex-col">
+                                    <h6 class="text-white text-xs font-bold mb-0">
+                                        <?= $post['username']; ?>
+                                    </h6>
+                                    <p class="text-white text-xs font-semibold opacity-70">
+                                        <?= Helpers::datePosted($post['created']) ?>
+                                    </p>
+                                </div>
+                            </a>
                         </div>
                         <div class="flex flex-row">
                             <a href="<?= '/posts/edit/' . $post['id']; ?>">

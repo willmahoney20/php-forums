@@ -30,7 +30,7 @@ class Posts {
 	}
 
 	// get all posts from one user
-	public function getUserPosts(){
+	public function getUserPosts($hash){
 		global $db;
 
 		$recs = $db
@@ -55,8 +55,8 @@ class Posts {
 				ORDER BY
 					forum_posts.created DESC;
 			", [
-				'user_id' => 1,
-				'username' => 'will'
+				'user_id' => $hash,
+				'username' => $hash
 			])
 			->findAll();
 

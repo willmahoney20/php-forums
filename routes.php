@@ -87,7 +87,8 @@ $router->mount('/users', function () use ($router) {
 
 		$user = (new Users)->getOneUser($hash);
 
-		$posts = (new Posts)->getUserPosts();
+		$posts = [];
+		if($user) $posts = (new Posts)->getUserPosts($hash);
 		
 		require_once 'views/user.php';
 	});

@@ -53,6 +53,13 @@ class Helpers {
         return "$difference $periods[$i] ago";
     }
 
+    // gets the time in 'Month Year' (e.g. January 2021) format
+    public static function dateMonthYear($dateString){
+        $date = new DateTime($dateString);
+        $formattedDate = $date->format('F Y'); // 'F' represents the full month name and 'Y' represents the four-digit year
+        return $formattedDate;
+    }
+
     // the $pageJS is an array of JS files we've added in the routes.php file, this function loops through this array, adding the relevant JS files, this fn will likely be called in the footer
 	public static function pageJS(){
 		global $pageJS;
