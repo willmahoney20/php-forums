@@ -180,7 +180,7 @@ class Posts {
 			VALUES (:content, :user_id)
 		", [
 			'content' => htmlspecialchars($_POST['content']),
-			'user_id' => 1
+			'user_id' => $_SESSION['auth']->user->id
 		]);
 
 		Helpers::redirectSelf();

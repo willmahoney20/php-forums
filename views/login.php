@@ -11,7 +11,7 @@
         </div>
         <div class="flex flex-col mb-4">
             <label for="password" class="text-white text-sm font-medium mb-1">Password</label>
-            <input type="password" name="password" value="<?php echo $_POST['password']; ?>" class="bg-transparent border rounded border-white text-white text-sm h-8 w-full px-2" placeholder="Enter your password..." required>
+            <input type="password" name="password" value="<?php echo $_POST['password']; ?>" class="bg-transparent border rounded border-white text-white text-sm h-8 w-full px-2" placeholder="Enter your password..." required autocomplete="off">
         </div>
         <div class="flex flex-col mb-2">
             <p class="text-white text-sm font-normal">Don't have an account? Join <a href="/signup" class="text-green-500">here.</a></p>

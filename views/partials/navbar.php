@@ -4,6 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/x-icon" href="../../assets/favicon.ico">
         <link href="../../index.css" rel="stylesheet">
         <title>PHP Forums</title>
     </head>
@@ -26,7 +27,7 @@
                                 <button type="submit" class="mr-1 h-5 w-5">
                                     <img class="h-5 w-5" src="../../assets/search.png" alt="Logo">
                                 </button>
-                                <input name="search" class="w-full bg-transparent text-sm font-normal text-gray-400 pr-2" placeholder="Search...">
+                                <input name="search" class="w-full bg-transparent text-sm font-normal text-gray-400 pr-2" placeholder="Search..." autocomplete="off">
                             </div>
                         </form>
                         <a href="/users/will" class="flex flex-row">
