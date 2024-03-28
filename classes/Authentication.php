@@ -43,10 +43,9 @@ class Authentication {
 
             return false;
         }
-
     }
 
-	private function setLoggedIn($user){
+	public static function setLoggedIn($user){
 		global $db;
 
         $_SESSION['auth'] = new stdClass;

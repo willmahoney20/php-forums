@@ -32,7 +32,9 @@ class Users {
 	
 			if(!$user) return false;
 	
-			header("Location: " . "/posts");
+			header("Location: " . "/login");
+
+			Helpers::setNotification('You have successfully signed up! Please login.', 'signup-success');
 			exit;
 		} catch (PDOException $e) {
 			$errorMessage = $e->getMessage();

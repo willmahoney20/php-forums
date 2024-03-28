@@ -16,6 +16,7 @@
         <div class="flex flex-col mb-2">
             <p class="text-white text-sm font-normal">Don't have an account? Join <a href="/signup" class="text-green-500">here.</a></p>
         </div>
+
         <?php if($_SESSION['notifications']['login-error']){ ?>
             <div class="flex flex-col mb-2">
                 <p class="text-red-500 text-sm font-normal">
@@ -23,7 +24,15 @@
                 </p>
             </div>
             <?php unset($_SESSION['notifications']); ?>
+        <?php } elseif($_SESSION['notifications']['signup-success']){ ?>
+            <div class="flex flex-col mb-2">
+                <p class="text-green-500 text-sm font-normal">
+                    <?= $_SESSION['notifications']['signup-success'][0]; ?>
+                </p>
+            </div>
+            <?php unset($_SESSION['notifications']); ?>
         <?php } ?>
+
         <input type="submit" name="submit" value="Login" class="bg-transparent font-medium text-sm text-white border-2 border-white rounded-lg w-24 h-8 mt-3 cursor-pointer">
     </form>
 </div>
